@@ -45,7 +45,7 @@ function Airdrop() {
     try {
       const publicKey = wallet.publicKey || new PublicKey(inputkey)
       await connection.requestAirdrop(publicKey, amount * 1000000000);
-      alert(`Airdropped ${amount} SOL! to ${wallet.publicKey || inputkey}`);
+      toast(`Airdropped ${amount} SOL! to ${wallet.publicKey || inputkey}`);
       console.log('InputKey is', inputkey);
       console.log('InputKey is', wallet.publicKey);
     } catch (error) {
