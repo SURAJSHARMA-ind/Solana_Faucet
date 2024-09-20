@@ -4,7 +4,11 @@ import Navbar from './components/Navbar'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import {
   WalletModalProvider,
-} from '@solana/wallet-adapter-react-ui';
+} from '@solana/wallet-adapter-react-ui';import { Buffer } from "buffer";
+
+// Ensure global Buffer is available
+window.Buffer = window.Buffer || Buffer;
+
 
 const apikey = import.meta.env.VITE_API_KEY
 function App() {
