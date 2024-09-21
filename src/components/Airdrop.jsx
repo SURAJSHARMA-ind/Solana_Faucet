@@ -11,7 +11,6 @@ function Airdrop() {
   const [inputkey, setInputKey] = useState('')
 
 
-
   useEffect(() => {
     if (wallet.connected) {
       console.log('isdisables: true');
@@ -29,11 +28,9 @@ function Airdrop() {
 
   const inputHandler = (e) => {
     const userinput = e.target.value;
-    if (userinput > 99) {
-      setAmount(99)
-      toast('Chalak Bro', {
-        icon: '🧐',
-      });
+    if (userinput > 5) {
+      setAmount(5)
+      toast.error('Limit exceed: 5 Sol at a time')
     } else {
 
       setAmount(userinput);
@@ -42,15 +39,20 @@ function Airdrop() {
   };
 
   const sendAirdrop = async () => {
-    try {
-      const publicKey = wallet.publicKey || new PublicKey(inputkey)
-      await connection.requestAirdrop(publicKey, amount * 1000000000);
-      toast(`Airdropped ${amount} SOL! to ${wallet.publicKey || inputkey}`);
-      console.log('InputKey is', inputkey);
-      console.log('InputKey is', wallet.publicKey);
-    } catch (error) {
-      console.log('InputKey is', inputkey);
-      console.log('Error:', error);
+    if (!amount == 0) {
+      try {
+        const publicKey = wallet.publicKey || new PublicKey(inputkey)
+        await connection.requestAirdrop(publicKey, amount * 1000000000);
+        toast.success(`Airdropped ${amount} SOL! to ${wallet.publicKey || inputkey}`);
+        console.log('InputKey is', inputkey);
+        console.log('InputKey is', wallet.publicKey);
+      } catch (error) {
+        console.log('InputKey is', inputkey);
+        console.log('Error:', error);
+      }
+    }
+    else {
+      toast.error('Enter Correct Amount')
     }
   };
 
@@ -69,10 +71,10 @@ function Airdrop() {
         <input
           className='border bg-gray-900 text-white w-1/2 p-2 rounded-md'
           onChange={(e) => inputHandler(e)}
-          type="text"
+          type="number"
           value={amount}
           placeholder='Enter Amount'
-          maxLength={2}
+          maxLength={10}
         />
       </div>
       <button
