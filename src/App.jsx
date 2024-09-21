@@ -4,17 +4,18 @@ import Navbar from './components/Navbar'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import {
   WalletModalProvider,
-} from '@solana/wallet-adapter-react-ui';import { Buffer } from "buffer";
+} from '@solana/wallet-adapter-react-ui';
+// import { Buffer } from "buffer";
 
 // Ensure global Buffer is available
-window.Buffer = window.Buffer || Buffer;
+// window.Buffer = window.Buffer || Buffer;
 
 
 const apikey = import.meta.env.VITE_API_KEY
 function App() {
   return (
     <div>
-      <ConnectionProvider endpoint={`https://solana-devnet.g.alchemy.com/v2/${apikey}`}>
+      <ConnectionProvider endpoint={`https://devnet.helius-rpc.com/?api-key=${apikey}`}>
         <WalletProvider wallets={[]} autoConnect>
           <WalletModalProvider>
             <Navbar />
