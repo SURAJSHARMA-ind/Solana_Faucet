@@ -3,6 +3,7 @@ import React from 'react';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import Airdrop from './Airdrop'
 import Buttons from './Buttons';
+import { SignMessage } from './SignMessage';
 import { SendTokens } from './SendTokens';
 
 
@@ -15,6 +16,7 @@ function Faucet() {
               <h1 className='text-xl sm:text-2xl text-gray-400 text-center'>or</h1>
               <Airdrop />
               <SendTokens/>
+              <SignMessage />
             </div>
     </div>
   );
