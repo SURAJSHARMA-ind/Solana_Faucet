@@ -14,7 +14,7 @@ const apikey = import.meta.env.VITE_API_KEY
 function App() {
   return (
     <div>
-      <ConnectionProvider endpoint={`https://devnet.helius-rpc.com/?api-key=${apikey}`}>
+      <ConnectionProvider endpoint={`https://solana-devnet.g.alchemy.com/v2/${apikey}`}>
         <WalletProvider wallets={[]} autoConnect>
           <WalletModalProvider>
             <Navbar />
