@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
 import toast, { Toaster } from 'react-hot-toast';
-import { stringify } from 'postcss';
 
 function Airdrop() {
   const [amount, setAmount] = useState(0);
@@ -31,7 +30,7 @@ function Airdrop() {
     const userinput = e.target.value;
     if (userinput > 5) {
       setAmount(5)
-      toast.error('Limit exceed: 5 Sol at a time')
+      return toast.error('Limit exceed: 5 Sol at a time')
     } else {
 
       setAmount(userinput);
@@ -49,10 +48,10 @@ function Airdrop() {
   
         toast.success(`Airdropped ${amount} SOL to ${formattedKey}`);
       } catch (error) {
-        toast.error(`Error: ${error.message}`);
+        return toast.error(`Error: ${error.message}`);
       }
     } else {
-      toast.error('Enter a valid amount');
+      return toast.error('Enter a valid amount');
     }
   };
   

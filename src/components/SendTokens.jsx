@@ -18,7 +18,7 @@ export function SendTokens() {
     
     if (userinput > 5) {
       setAmount(5)
-      toast.error('Limit exceed: 5 Sol at a time')
+      return toast.error('Limit exceed: 5 Sol at a time')
     }else {
       setAmount(userinput);
     }
