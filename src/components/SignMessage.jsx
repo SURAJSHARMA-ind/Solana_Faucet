@@ -13,6 +13,9 @@ export function SignMessage() {
     }
 
     async function onClick() {
+        if(!message){
+          return  toast.error("Message is empty")
+        }
         if (!publicKey) throw new Error('Wallet not connected!');
         if (!signMessage) throw new Error('Wallet does not support message signing!');
         
