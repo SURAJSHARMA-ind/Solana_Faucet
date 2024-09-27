@@ -60,6 +60,7 @@ export function SendTokens() {
           value={amount}
           onChange={amountHandler}
           type="number"
+          min={0.00000001}
           placeholder="Amount"
           className="w-1/2 p-2 rounded-md "
         />

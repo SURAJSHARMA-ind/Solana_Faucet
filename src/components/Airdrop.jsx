@@ -74,6 +74,7 @@ function Airdrop() {
           className='border bg-gray-900 text-white w-1/2 p-2 rounded-md'
           onChange={(e) => inputHandler(e)}
           type="number"
+          min={0.001}
           value={amount}
           placeholder='Enter Amount'
           maxLength={10}
