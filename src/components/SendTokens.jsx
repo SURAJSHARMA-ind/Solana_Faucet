@@ -1,7 +1,8 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react"
 import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { CgOverflow } from "react-icons/cg";
 
 
 
@@ -10,13 +11,15 @@ export function SendTokens() {
   const { connection } = useConnection();
   const [amount, setAmount] = useState(0)
   const [receiver, setReceiver] = useState("")
+
   const amountHandler = (e) => {
+    
     const userinput = e.target.value;
+    
     if (userinput > 5) {
       setAmount(5)
       toast.error('Limit exceed: 5 Sol at a time')
-    } else {
-
+    }else {
       setAmount(userinput);
     }
   }
@@ -25,6 +28,7 @@ export function SendTokens() {
   }
 
   async function sendTokens() {
+    try{
     const transaction = new Transaction();
     transaction.add(SystemProgram.transfer({
       fromPubkey: wallet.publicKey,
@@ -33,11 +37,15 @@ export function SendTokens() {
     }));
 
     await wallet.sendTransaction(transaction, connection);
-    toast.success("Sent " + amount + " SOL to " + receiver);
+    toast.success(`Sent ${amount} SOL to ${receiver.slice(0,10)}...`)
+  }catch(error){
+    toast.error(`Error : ${error}`)
+  }
   }
 
   return (
     <div className="flex flex-col w-full  gap-2 text-black">
+      <Toaster />
       <div className="flex flex-row w-full justify-between gap-2 ">
         <input
           value={receiver}
@@ -57,7 +65,7 @@ export function SendTokens() {
         />
 
       </div>
-      <button className="bg-gray-500 rounded-md p-2  w-1/2" onClick={sendTokens}>Send</button>
+      <button className="bg-gray-800 rounded-md p-2 hover:bg-gray-900 text-white  w-full" onClick={sendTokens}>Send</button>
     </div>
   );
 }
