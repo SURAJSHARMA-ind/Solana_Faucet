@@ -37,7 +37,7 @@ export function SendTokens() {
     }));
 
     await wallet.sendTransaction(transaction, connection);
-    toast.success(`Sent ${amount} SOL to ${receiver.slice(0,10)}...`)
+    toast.success(`Sent ${amount} SOL to ${receiver.slice(0,4)}...${receiver.slice(-4)}`)
   }catch(error){
     toast.error(`Error : ${error}`)
   }

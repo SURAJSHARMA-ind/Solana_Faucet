@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
 import toast, { Toaster } from 'react-hot-toast';
+import { stringify } from 'postcss';
 
 function Airdrop() {
   const [amount, setAmount] = useState(0);
@@ -39,26 +40,27 @@ function Airdrop() {
   };
 
   const sendAirdrop = async () => {
-    if (!amount == 0) {
+    if (amount > 0) {
       try {
-        const publicKey = wallet.publicKey || new PublicKey(inputkey)
-        await connection.requestAirdrop(publicKey, amount * 1000000000);
-        toast.success(`Airdropped ${amount} SOL! to ${wallet.publicKey || inputkey}`);
-        console.log('InputKey is', inputkey);
-        console.log('InputKey is', wallet.publicKey);
+        // Use toBase58() to convert the PublicKey object to a string
+        const publicKey = wallet.publicKey ? wallet.publicKey.toBase58() : inputkey;
+        await connection.requestAirdrop(new PublicKey(publicKey), amount * 1e9);
+        const formattedKey = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+  
+        toast.success(`Airdropped ${amount} SOL to ${formattedKey}`);
       } catch (error) {
-        console.log('InputKey is', inputkey);
-        console.log('Error:', error);
+        toast.error(`Error: ${error.message}`);
       }
-    }
-    else {
-      toast.error('Enter Correct Amount')
+    } else {
+      toast.error('Enter a valid amount');
     }
   };
+  
 
   return (
     <div className='flex flex-col w-full items-center gap-4'>
-      <div><Toaster /></div>
+       <Toaster/>
+
       <div className='flex flex-col w-full items-center gap-4'>
         <input
           onChange={(e) => handleinputkey(e)}
