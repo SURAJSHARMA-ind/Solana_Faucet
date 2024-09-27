@@ -15,8 +15,8 @@ function Faucet() {
               <Buttons/>
               <h1 className='text-xl sm:text-2xl text-gray-400 text-center'>or</h1>
               <Airdrop />
-              <SendTokens/>
               <SignMessage />
+              <SendTokens/>
             </div>
     </div>
   );
